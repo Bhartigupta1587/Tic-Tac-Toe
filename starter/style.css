@@ -1,6 +1,4 @@
 body{
-    margin:0px;
-    padding:0px;
     font-family: "Arial", sans-serif;
     background: aliceblue;
 }
@@ -29,7 +27,18 @@ section {
     height: 100px;
     box-shadow: 0 0 0 1px red;
     border: 1px solid #333333;
-    cursor: pointer;//The cursor is a pointer and indicates a link
+    cursor: pointer; //The cursor is a pointer and indicates a link
     line-height: 100px;
     font-size: 60px;
+}
+.cell:hover{
+    background: lightblue;
+}
+#player1, #player2, #tie{
+   display: inline;
+    margin: 40px;
+}
+.player11, .player22, .tie11{
+    display: inline;
+    margin: 20px;
 }

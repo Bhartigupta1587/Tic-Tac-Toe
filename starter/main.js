@@ -3,11 +3,14 @@ let statusDisplay = document.querySelector('.game-status')
 let gameActive = true
 let currentPlayer = 'X'
 let gameState = ['', '', '', '', '', '', '', '', '']
-const winningMassage = () => `player ${currentPlayer} has won!`
+let player1point = 0
+let player2Point = 0
+let tieValue = 1
+const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => 'game ended in draw'
 const currentPlayerTurn = () => `It's ${currentPlayer} turn`
 statusDisplay.innerHTML = currentPlayerTurn()
-document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', CellClick));
+document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', cellClick));
 document.querySelector('.game-restart').addEventListener('click', restartGame);
 const winningConditions = [
     [0, 1, 2],
@@ -19,9 +22,8 @@ const winningConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ]
-
 //Handel Cell Click
-function CellClick(clickedCellEvent){
+function cellClick(clickedCellEvent) {
     //get the clicked cell info
     const clickedCell = clickedCellEvent.target
     //get the clicked cell number
@@ -31,53 +33,72 @@ function CellClick(clickedCellEvent){
     // or if the game is paused. If either of those is true we will simply ignore the click.
     if (gameState[clickedCellIndex] !== "" || !gameActive) {
         return;
-    }
-    else
-        CellPlayed(clickedCell, clickedCellIndex)
-        ResultValidation()
+    } else
+        cellPlayed(clickedCell, clickedCellIndex)
+    resultValidation()
 }
 //update the gameState and cell value cell value
-function CellPlayed(clickedCell, clickedCellIndex){
+function cellPlayed(clickedCell, clickedCellIndex) {
     gameState[clickedCellIndex] = currentPlayer
     clickedCell.innerHTML = currentPlayer
+    if (currentPlayer === 'X') {
+        document.querySelectorAll('.cell')[clickedCellIndex].style.color = 'black'
+    } else
+        document.querySelectorAll('.cell')[clickedCellIndex].style.color = 'red'
 }
 //function validate the result
-function ResultValidation(){
-    let roundWon =false
-    for(let i=0;i<8;i++){
-        let winCondition =winningConditions[i]
-        let a = gameState[winCondition[0]]//fist element of winning condition
-        let b = gameState[winCondition[1]]//2nd
-        let c = gameState[winCondition[2]]//3rd
-        if(a==''||b==''||c==''){
+function resultValidation() {
+    let roundWon = false
+    for (let i = 0; i < 8; i++) {
+        let winCondition = winningConditions[i]
+        let first = gameState[winCondition[0]] //fist element of winning condition
+        let second = gameState[winCondition[1]] //2nd
+        let third = gameState[winCondition[2]] //3rd
+        if (first === '' || second === '' || third === '') {
             continue
         }
-        if(a===b && a===c){
+        if (first === second && first === third) {
             roundWon = true
+            scoreUpdate()
         }
-        if(roundWon){
-            statusDisplay.innerHTML = winningMassage()
-            gameActive =false
+        if (roundWon) {
+            statusDisplay.innerHTML = winningMessage()
+            gameActive = false
             return;
         }
-        if(!(gameState.includes(''))){
-            statusDisplay.innerHTML=drawMessage();
-            gameActive=false
+        if (!(gameState.includes(''))) {
+            tiePoints()
+            statusDisplay.innerHTML = drawMessage();
+            gameActive = false
             return;
         }
     }
     playerChange()
 }
 //change the current player and update the game status message
-function playerChange(){
-    currentPlayer = currentPlayer ==='X'?'O':'X'
+function playerChange() {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X'
     statusDisplay.innerHTML = currentPlayerTurn()
 }
 //Reset the game
-function restartGame(){
+function restartGame() {
     gameActive = true
-    currentPlayer ='X'
+    currentPlayer = 'X'
     gameState = ['', '', '', '', '', '', '', '', '']
     statusDisplay.innerHTML = currentPlayerTurn()
-    document.querySelectorAll('.cell').forEach(cell =>cell.innerHTML='')
+    document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = '')
+}
+
+function scoreUpdate() {
+    if (currentPlayer === 'X') {
+        player1point++
+        document.querySelector('#player1').innerHTML = player1point.toString()
+    } else {
+        player2Point++
+        document.querySelector('#player2').innerHTML = player1point.toString()
+    }
+}
+function tiePoints(){
+    tieValue++
+    document.querySelector('#tie').innerHTML = tieValue.toString()
 }
