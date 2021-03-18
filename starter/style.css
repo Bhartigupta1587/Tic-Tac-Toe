@@ -2,6 +2,10 @@ body{
     font-family: "Arial", sans-serif;
     background: aliceblue;
     display: flex;
+    align-items: center
+    justify-content: space-around;
+    flex-direction: column;
+
 }
 .game-title{
     background:#222;
@@ -34,7 +38,7 @@ section {
     font-size: 60px;
 }
 .cell:hover{
-    background: lightblue;
+    background: lawngreen;
 }
 #player1, #player2, #tie{
    display: inline;

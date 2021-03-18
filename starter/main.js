@@ -13,7 +13,7 @@ const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => 'game ended in draw'
 const currentPlayerTurn = () => `It's ${currentPlayer} turn`
 statusDisplay.innerHTML = currentPlayerTurn()
-if(currentPlayer=='') {
+if(currentPlayer==='') {
     alert("choose player first")
 }
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', cellClick));
@@ -86,7 +86,7 @@ function resultValidation() {
 }
 //change the current player and update the game status message
 function playerChange() {
-    if(currentPlayer==''){
+    if(currentPlayer===''){
         alert("choose player first")
     }
     else {
@@ -134,6 +134,6 @@ function choosePlayerO(){
     }
 }
 function playSound() {
-    var sound = document.getElementById("audio");
+    let sound = document.getElementById("audio");
     sound.play();
 }
