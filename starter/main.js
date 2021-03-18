@@ -50,6 +50,7 @@ function cellPlayed(clickedCell, clickedCellIndex) {
     clickedCell.innerHTML = currentPlayer
     if (currentPlayer === 'X') {
         document.querySelectorAll('.cell')[clickedCellIndex].style.color = 'black'
+        document.querySelectorAll('.cell')[clickedCellIndex].style.background = 'skyblue'
     } else
         document.querySelectorAll('.cell')[clickedCellIndex].style.color = 'red'
 }
