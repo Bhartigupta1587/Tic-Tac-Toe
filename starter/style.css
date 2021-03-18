@@ -1,6 +1,7 @@
 body{
     font-family: "Arial", sans-serif;
     background: aliceblue;
+    display: flex;
 }
 .game-title{
     background:#222;
@@ -20,6 +21,7 @@ section {
     grid-template-columns: repeat(3, auto);
     width: 306px;
     margin: 50px auto;
+
 }
 .cell {
     font-family: "Permanent Marker", cursive;
@@ -41,4 +43,12 @@ section {
 .player11, .player22, .tie11{
     display: inline;
     margin: 20px;
+}
+.option{
+    margin: 10px;
+}
+@media screen and (max-width: 600px) {
+    main{
+        align-items: center;
+    }
 }

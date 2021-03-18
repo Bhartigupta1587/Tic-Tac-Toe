@@ -1,15 +1,21 @@
 console.log("linked")
-let statusDisplay = document.querySelector('.game-status')
 let gameActive = true
-let currentPlayer = 'X'
+let currentPlayer=''
+let chooseFirst=''
+document.querySelector('#X').addEventListener('click',choosePlayerX)
+document.querySelector('#O').addEventListener('click',choosePlayerO)
+let statusDisplay = document.querySelector('.game-status')
 let gameState = ['', '', '', '', '', '', '', '', '']
 let player1point = 0
 let player2Point = 0
-let tieValue = 1
+let tieValue = 0
 const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => 'game ended in draw'
 const currentPlayerTurn = () => `It's ${currentPlayer} turn`
 statusDisplay.innerHTML = currentPlayerTurn()
+if(currentPlayer=='') {
+    alert("choose player first")
+}
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', cellClick));
 document.querySelector('.game-restart').addEventListener('click', restartGame);
 const winningConditions = [
@@ -35,7 +41,8 @@ function cellClick(clickedCellEvent) {
         return;
     } else
         cellPlayed(clickedCell, clickedCellIndex)
-    resultValidation()
+        resultValidation()
+
 }
 //update the gameState and cell value cell value
 function cellPlayed(clickedCell, clickedCellIndex) {
@@ -59,31 +66,38 @@ function resultValidation() {
         }
         if (first === second && first === third) {
             roundWon = true
-            scoreUpdate()
+
         }
         if (roundWon) {
             statusDisplay.innerHTML = winningMessage()
+            scoreUpdate()
             gameActive = false
             return;
         }
+    }
         if (!(gameState.includes(''))) {
             tiePoints()
             statusDisplay.innerHTML = drawMessage();
             gameActive = false
             return;
         }
-    }
+
     playerChange()
 }
 //change the current player and update the game status message
 function playerChange() {
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X'
-    statusDisplay.innerHTML = currentPlayerTurn()
+    if(currentPlayer==''){
+        alert("choose player first")
+    }
+    else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X'
+        statusDisplay.innerHTML = currentPlayerTurn()
+    }
 }
 //Reset the game
 function restartGame() {
     gameActive = true
-    currentPlayer = 'X'
+    currentPlayer = chooseFirst
     gameState = ['', '', '', '', '', '', '', '', '']
     statusDisplay.innerHTML = currentPlayerTurn()
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = '')
@@ -101,4 +115,25 @@ function scoreUpdate() {
 function tiePoints(){
     tieValue++
     document.querySelector('#tie').innerHTML = tieValue.toString()
+}
+//choosing player which goes first
+function choosePlayerX() {
+    if(currentPlayer==='') {
+        currentPlayer = 'X'
+        chooseFirst=currentPlayer
+        currentPlayerTurn()
+        console.log(currentPlayer);
+    }
+}
+function choosePlayerO(){
+    if(currentPlayer==='') {
+        currentPlayer = 'O'
+        chooseFirst=currentPlayer
+        currentPlayerTurn()
+        console.log(currentPlayer);
+    }
+}
+function playSound() {
+    var sound = document.getElementById("audio");
+    sound.play();
 }

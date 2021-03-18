@@ -10,18 +10,19 @@
 </head>
 <body>
     <section>
-            <h1 class="game-title">Tic Tac Toe</h1>
-            <p>Player 1 is playerX<br>
-                Player 2 is PlayerO</p>
+            <h1 class="game-title">A Tic Tac Toe Game</h1>
+            <p> Who goes first? </p><br>
+            <button class="option" id="X"> X </button>
+            <button class="option" id="O"> O </button>
             <h2 class="game-status"></h2>
-            <div class="player11">Player1</div>
-            <div class="player22">Player2</div>
+            <div class="player11">PlayerX</div>
+            <div class="player22">PlayerO</div>
             <div class="tie11">Tie</div><br><br>
             <div id="player1">0</div>
             <div id="player2">0</div>
             <div id="tie">0</div>
-            <div class="game-container">
-                <div data-cell-index="0" class="cell"></div>
+            <div class="game-container" <a onclick="playSound();"></a>
+                <div data-cell-index="0" class="cell" ></div>
                 <div data-cell-index="1" class="cell"></div>
                 <div data-cell-index="2" class="cell"></div>
                 <div data-cell-index="3" class="cell"></div>
@@ -32,7 +33,8 @@
                 <div data-cell-index="8" class="cell"></div>
             </div><br>
 
-        <button class="game-restart">Restart Game</button>
+        <button class="game-restart">Restart Game</button><br><br>
+        <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autoplay="false" ></audio>
     </section>
 
     <script src="main.js"></script>
