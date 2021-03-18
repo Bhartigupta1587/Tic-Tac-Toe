@@ -67,11 +67,10 @@ function resultValidation() {
         }
         if (first === second && first === third) {
             roundWon = true
-
+            scoreUpdate()
         }
         if (roundWon) {
             statusDisplay.innerHTML = winningMessage()
-            scoreUpdate()
             gameActive = false
             return;
         }
@@ -102,15 +101,17 @@ function restartGame() {
     gameState = ['', '', '', '', '', '', '', '', '']
     statusDisplay.innerHTML = currentPlayerTurn()
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = '')
+    document.querySelectorAll('.cell').forEach(cell => cell.style.background='white')
 }
 
 function scoreUpdate() {
     if (currentPlayer === 'X') {
         player1point++
         document.querySelector('#player1').innerHTML = player1point.toString()
-    } else {
+    }
+    else if (currentPlayer === 'O'){
         player2Point++
-        document.querySelector('#player2').innerHTML = player1point.toString()
+        document.querySelector('#player2').innerHTML = player2Point.toString()
     }
 }
 function tiePoints(){
