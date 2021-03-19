@@ -1,6 +1,6 @@
 body{
     font-family: "Arial", sans-serif;
-    background: aliceblue;
+    background: lightseagreen;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -14,7 +14,7 @@ body{
 }
 .game-status{
     background: bisque;
-    color: crimson;
+    color: red;
     font-size:30pt
 }
 section {
@@ -25,7 +25,8 @@ section {
     grid-template-columns: repeat(3, auto);
     width: 306px;
     margin: 50px auto;
-
+    --animate-repeat: 2;
+    --animate-duration: 1310s
 }
 .cell {
     font-family: "Permanent Marker", cursive;
@@ -36,13 +37,14 @@ section {
     cursor: pointer; //The cursor is a pointer and indicates a link
     line-height: 100px;
     font-size: 60px;
+    animation: bounce;
 }
 .cell:hover{
     background: lawngreen;
 }
 #player1, #player2, #tie{
    display: inline;
-    margin: 40px;
+    margin: 45px;
 }
 .player11, .player22, .tie11{
     display: inline;

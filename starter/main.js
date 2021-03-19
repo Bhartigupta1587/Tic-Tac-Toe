@@ -2,6 +2,7 @@ console.log("linked")
 let gameActive = true
 let currentPlayer=''
 let chooseFirst=''
+document.querySelector(".game-container").addEventListener('click',()=>playSound())
 document.querySelector('#X').addEventListener('click',choosePlayerX)
 document.querySelector('#O').addEventListener('click',choosePlayerO)
 let statusDisplay = document.querySelector('.game-status')
@@ -10,13 +11,15 @@ let player1point = 0
 let player2Point = 0
 let tieValue = 0
 const winningMessage = () => `Player ${currentPlayer} has won!`;
-const drawMessage = () => 'game ended in draw'
+const drawMessage = () => 'Game ended in Draw'
 const currentPlayerTurn = () => `It's ${currentPlayer} turn`
 statusDisplay.innerHTML = currentPlayerTurn()
 if(currentPlayer==='') {
     alert("choose player first")
 }
+//When click on any cell
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', cellClick));
+//When click on restart button
 document.querySelector('.game-restart').addEventListener('click', restartGame);
 const winningConditions = [
     [0, 1, 2],
@@ -28,7 +31,7 @@ const winningConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ]
-//Handel Cell Click
+//Handel which is Cell Clicked
 function cellClick(clickedCellEvent) {
     //get the clicked cell info
     const clickedCell = clickedCellEvent.target
@@ -44,7 +47,7 @@ function cellClick(clickedCellEvent) {
         resultValidation()
 
 }
-//update the gameState and cell value cell value
+//Update the gameState and cell value
 function cellPlayed(clickedCell, clickedCellIndex) {
     gameState[clickedCellIndex] = currentPlayer
     clickedCell.innerHTML = currentPlayer
@@ -53,8 +56,9 @@ function cellPlayed(clickedCell, clickedCellIndex) {
         document.querySelectorAll('.cell')[clickedCellIndex].style.background = 'skyblue'
     } else
         document.querySelectorAll('.cell')[clickedCellIndex].style.color = 'red'
+
 }
-//function validate the result
+//Validate the result
 function resultValidation() {
     let roundWon = false
     for (let i = 0; i < 8; i++) {
@@ -66,8 +70,10 @@ function resultValidation() {
             continue
         }
         if (first === second && first === third) {
+            rotateBoard()
             roundWon = true
             scoreUpdate()
+
         }
         if (roundWon) {
             statusDisplay.innerHTML = winningMessage()
@@ -75,16 +81,17 @@ function resultValidation() {
             return;
         }
     }
-        if (!(gameState.includes(''))) {
-            tiePoints()
-            statusDisplay.innerHTML = drawMessage();
-            gameActive = false
-            return;
-        }
+    if (!(gameState.includes(''))) {
+        tiePoints()
+        tieAnimationBoard()
+        statusDisplay.innerHTML = drawMessage();
+        gameActive = false
+        return;
+    }
 
     playerChange()
 }
-//change the current player and update the game status message
+//Change the current player and update the game status message
 function playerChange() {
     if(currentPlayer===''){
         alert("choose player first")
@@ -101,9 +108,11 @@ function restartGame() {
     gameState = ['', '', '', '', '', '', '', '', '']
     statusDisplay.innerHTML = currentPlayerTurn()
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = '')
-    document.querySelectorAll('.cell').forEach(cell => cell.style.background='white')
+    document.querySelectorAll('.cell').forEach(cell => cell.style.background= 'white')
+    document.querySelector('.game-container').classList.remove('animate__animated', 'animate__jello')
+    document.querySelector('.game-container').classList.remove('animate__animated', 'animate__flash')
 }
-
+//Update the players scores
 function scoreUpdate() {
     if (currentPlayer === 'X') {
         player1point++
@@ -114,11 +123,12 @@ function scoreUpdate() {
         document.querySelector('#player2').innerHTML = player2Point.toString()
     }
 }
+//Update the tie scores
 function tiePoints(){
     tieValue++
     document.querySelector('#tie').innerHTML = tieValue.toString()
 }
-//choosing player which goes first
+//First time player X value
 function choosePlayerX() {
     if(currentPlayer==='') {
         currentPlayer = 'X'
@@ -127,6 +137,7 @@ function choosePlayerX() {
         console.log(currentPlayer);
     }
 }
+//First time player O value
 function choosePlayerO(){
     if(currentPlayer==='') {
         currentPlayer = 'O'
@@ -135,7 +146,19 @@ function choosePlayerO(){
         console.log(currentPlayer);
     }
 }
+//Sound effect when cell clicked
 function playSound() {
     let sound = document.getElementById("audio");
     sound.play();
+}
+function rotateBoard(){
+    console.log('rotate')
+    let gameBox = document.querySelector('.game-container')
+    gameBox.classList.add('animate__animated', 'animate__jello');
+   gameBox.style.setProperty('--animate-duration', '2s')
+}
+function tieAnimationBoard(){
+    let gameBox = document.querySelector('.game-container')
+    gameBox.classList.add('animate__animated', 'animate__flash');
+    //gameBox.style.setProperty('--animate-duration', '2s')
 }
