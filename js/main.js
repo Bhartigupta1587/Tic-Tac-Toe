@@ -2,14 +2,13 @@ console.log("linked")
 let gameActive = true
 let currentPlayer=''
 let chooseFirst=''
-document.querySelector(".game-container").addEventListener('click',()=>playSound())
-document.querySelector('#X').addEventListener('click',choosePlayerX)
-document.querySelector('#O').addEventListener('click',choosePlayerO)
-let statusDisplay = document.querySelector('.game-status')
 let gameState = ['', '', '', '', '', '', '', '', '']
 let player1point = 0
 let player2Point = 0
 let tieValue = 0
+document.querySelector('#X').addEventListener('click',choosePlayerX)
+document.querySelector('#O').addEventListener('click',choosePlayerO)
+let statusDisplay = document.querySelector('.game-status')
 const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => 'Game ended in Draw'
 const currentPlayerTurn = () => `It's ${currentPlayer} turn`
@@ -49,6 +48,7 @@ function cellClick(clickedCellEvent) {
 }
 //Update the gameState and cell value
 function cellPlayed(clickedCell, clickedCellIndex) {
+    document.querySelector(".game-container").addEventListener('click',()=>playSound())
     gameState[clickedCellIndex] = currentPlayer
     clickedCell.innerHTML = currentPlayer
     if (currentPlayer === 'X') {
@@ -128,7 +128,7 @@ function tiePoints(){
     tieValue++
     document.querySelector('#tie').innerHTML = tieValue.toString()
 }
-//First time player X value
+//First time player 'X' value
 function choosePlayerX() {
     if(currentPlayer==='') {
         currentPlayer = 'X'
@@ -137,7 +137,7 @@ function choosePlayerX() {
         console.log(currentPlayer);
     }
 }
-//First time player O value
+//First time player 'O' value
 function choosePlayerO(){
     if(currentPlayer==='') {
         currentPlayer = 'O'
@@ -151,12 +151,14 @@ function playSound() {
     let sound = document.getElementById("audio");
     sound.play();
 }
+//Game wins board animation
 function rotateBoard(){
     console.log('rotate')
     let gameBox = document.querySelector('.game-container')
     gameBox.classList.add('animate__animated', 'animate__jello');
    gameBox.style.setProperty('--animate-duration', '2s')
 }
+//Game draw board animation
 function tieAnimationBoard(){
     let gameBox = document.querySelector('.game-container')
     gameBox.classList.add('animate__animated', 'animate__flash');
